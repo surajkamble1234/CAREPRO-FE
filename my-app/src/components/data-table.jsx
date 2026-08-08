@@ -329,10 +329,18 @@ function DraggableRow({
   );
 }
 
+const defaultSampleData = [
+  { id: 1, header: "OPD Consultation Queue - Dr. Sharma", type: "OPD Desk", status: "Done", target: "25", limit: "30", reviewer: "Dr. Sharma" },
+  { id: 2, header: "IPD Admission Bed Allocation - Ward 4B", type: "Inpatient", status: "In Progress", target: "12", limit: "15", reviewer: "Nurse Mary" },
+  { id: 3, header: "Pharmacy POS Counter Billing", type: "Pharmacy", status: "Done", target: "150", limit: "200", reviewer: "Pharmacist John" },
+  { id: 4, header: "Pathology Blood Sample Lab Tests", type: "Diagnostics", status: "In Progress", target: "45", limit: "50", reviewer: "Lab Tech Alex" },
+  { id: 5, header: "Operation Theatre Schedule Room 2", type: "Surgical OT", status: "Done", target: "4", limit: "5", reviewer: "Dr. Verma" },
+];
+
 export function DataTable({
-  data: initialData
+  data: initialData = defaultSampleData
 }) {
-  const [data, setData] = React.useState(() => initialData)
+  const [data, setData] = React.useState(() => (Array.isArray(initialData) ? initialData : defaultSampleData))
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
     React.useState({})
@@ -342,6 +350,12 @@ export function DataTable({
     pageIndex: 0,
     pageSize: 10,
   })
+
+  React.useEffect(() => {
+    if (Array.isArray(initialData)) {
+      setData(initialData);
+    }
+  }, [initialData]);
   const sortableId = React.useId()
   const sensors = useSensors(
     useSensor(MouseSensor, {}),

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from '@/core/context/ThemeContext';
 import Header from '@/components/common/Header';
 import Hero from '@/components/common/Hero';
@@ -12,8 +12,25 @@ function App() {
   const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'login' | 'dashboard'
   const [authUser, setAuthUser] = useState(null);
 
+  // Restore authenticated session from localStorage on initial load
+  useEffect(() => {
+    const savedUser = localStorage.getItem('carepro_user');
+    if (savedUser) {
+      try {
+        const parsed = JSON.parse(savedUser);
+        setAuthUser(parsed);
+        // Automatically show dashboard if logged in
+        setCurrentView('dashboard');
+      } catch (e) {
+        console.error('Error parsing stored auth user:', e);
+      }
+    }
+  }, []);
+
   const handleLoginSuccess = (user) => {
-    setAuthUser(user);
+    const activeUser = user || { name: 'Staff User', role: 'Doctor', email: 'doctor@maxzom.in' };
+    setAuthUser(activeUser);
+    localStorage.setItem('carepro_user', JSON.stringify(activeUser));
     setCurrentView('dashboard');
   };
 
@@ -31,7 +48,10 @@ function App() {
         {currentView === 'dashboard' ? (
           <DashboardPage user={authUser} onLogout={handleLogout} />
         ) : currentView === 'login' ? (
-          <LoginPage onLoginSuccess={handleLoginSuccess} />
+          <LoginPage 
+            onLoginSuccess={handleLoginSuccess} 
+            onNavigateHome={() => setCurrentView('landing')} 
+          />
         ) : (
           <>
             {/* Quick Demo Navigation Bar */}
@@ -57,7 +77,10 @@ function App() {
             </div>
 
             {/* Navigation */}
-            <Header />
+            <Header 
+              onNavigateLogin={() => setCurrentView('login')} 
+              onNavigateHome={() => setCurrentView('landing')} 
+            />
 
             {/* Hero & Sections */}
             <main>

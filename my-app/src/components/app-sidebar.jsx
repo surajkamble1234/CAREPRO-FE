@@ -149,21 +149,46 @@ const data = {
 }
 
 export function AppSidebar({
+  user,
+  onLogout,
   ...props
 }) {
+  const currentUser = user ? {
+    name: user.name || user.role || 'Staff Member',
+    email: user.email || `${user.role?.toLowerCase() || 'staff'}@maxzom.in`,
+    avatar: user.avatar || '/avatars/shadcn.jpg',
+  } : data.user;
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
-              <a href="#">
-                <IconInnerShadowTop className="size-5!" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+      <SidebarHeader className="p-4 border-b border-sidebar-border/50">
+        <div className="flex flex-col gap-1">
+          {/* Brand Name */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-2xl font-extrabold tracking-tight text-sidebar-foreground">
+              Care<span className="text-emerald-400">Pro</span>
+              <span className="text-amber-400 font-black ml-0.5">+</span>
+            </span>
+          </div>
+
+          {/* Subtitle */}
+          <div className="text-[10px] font-bold tracking-widest text-emerald-400 uppercase mt-0.5">
+            SMART CARE. SIMPLIFIED.
+          </div>
+
+          {/* Powered By Maxzom */}
+          <div className="text-[11px] text-muted-foreground font-medium flex items-center gap-1.5 mt-0.5">
+            <span>Powered by</span>
+            <span className="font-bold text-amber-400 dark:text-amber-300">Maxzom</span>
+          </div>
+        </div>
+
+        {/* Heartbeat ECG Pulse Line Effect */}
+        <div className="my-2.5 opacity-85">
+          <svg viewBox="0 0 200 24" className="w-full h-5 stroke-emerald-400 fill-none stroke-[2.5]">
+            <path d="M0 12 H50 L62 2 L74 22 L86 5 L98 19 L110 12 H200" className="animate-pulse" />
+          </svg>
+        </div>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
@@ -171,7 +196,7 @@ export function AppSidebar({
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={currentUser} onLogout={onLogout} />
       </SidebarFooter>
     </Sidebar>
   );

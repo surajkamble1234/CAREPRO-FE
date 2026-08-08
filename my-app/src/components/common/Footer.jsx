@@ -30,10 +30,10 @@ export default function Footer() {
         <div className={`w-full h-[1px] ${theme === 'dark' ? 'opacity-40' : 'opacity-60'}`} style={dashedLineStyle} />
       </div>
 
-      {/* Main Container */}
-      <div className="w-full max-w-6xl flex flex-col gap-8 text-left mb-12 sm:mb-16">
-        {/* Brand & Bio (Full width on top) */}
-        <div className="flex flex-col gap-3.5 max-w-md">
+      {/* Main Container: All 4 Sections Aligned in 1 Horizontal Row */}
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-5 gap-8 sm:gap-12 text-left mb-12 sm:mb-16 items-start">
+        {/* Section 1: Brand & Bio (Spans 2 columns) */}
+        <div className="md:col-span-2 flex flex-col gap-3.5">
           <div className="flex items-center gap-2.5 cursor-pointer group">
             <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-500 group-hover:scale-105 transition-transform">
               <Activity className="w-4 h-4" />
@@ -58,82 +58,79 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Link Columns: 2-Column Grid on Mobile (Product & Legal next to each other, Company below) / 3-Column on Desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-2">
-          {/* Column 1: Product */}
-          <div className="flex flex-col gap-3">
-            <h4
-              className={`text-xs font-bold tracking-widest uppercase ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-900'
-              }`}
-            >
-              Product
-            </h4>
-            <ul className="flex flex-col gap-2 text-sm font-medium">
-              {['Features', 'Pricing', 'Get started'].map((item, idx) => (
-                <li key={idx}>
-                  <a
-                    href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className={`transition-colors ${
-                      theme === 'dark' ? 'text-gray-300 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'
-                    }`}
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Section 2: Product */}
+        <div className="flex flex-col gap-3">
+          <h4
+            className={`text-xs font-bold tracking-widest uppercase ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-900'
+            }`}
+          >
+            Product
+          </h4>
+          <ul className="flex flex-col gap-2 text-sm font-medium">
+            {['Features', 'Pricing', 'Get started'].map((item, idx) => (
+              <li key={idx}>
+                <a
+                  href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+                  className={`transition-colors ${
+                    theme === 'dark' ? 'text-gray-300 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'
+                  }`}
+                >
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          {/* Column 2: Legal (Positioned directly next to Product on Mobile) */}
-          <div className="flex flex-col gap-3">
-            <h4
-              className={`text-xs font-bold tracking-widest uppercase ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-900'
-              }`}
-            >
-              Legal
-            </h4>
-            <ul className="flex flex-col gap-2 text-sm font-medium">
-              {['Privacy Policy', 'Terms of Service', 'Security & HIPAA'].map((item, idx) => (
-                <li key={idx}>
-                  <a
-                    href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className={`transition-colors ${
-                      theme === 'dark' ? 'text-gray-300 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'
-                    }`}
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Section 3: Company */}
+        <div className="flex flex-col gap-3">
+          <h4
+            className={`text-xs font-bold tracking-widest uppercase ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-900'
+            }`}
+          >
+            Company
+          </h4>
+          <ul className="flex flex-col gap-2 text-sm font-medium">
+            {['About Us', 'Contact', 'FAQ'].map((item, idx) => (
+              <li key={idx}>
+                <a
+                  href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+                  className={`transition-colors ${
+                    theme === 'dark' ? 'text-gray-300 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'
+                  }`}
+                >
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          {/* Column 3: Company (Positions cleanly in the 2-column grid on Mobile) */}
-          <div className="flex flex-col gap-3 col-span-2 md:col-span-1 pt-2 md:pt-0">
-            <h4
-              className={`text-xs font-bold tracking-widest uppercase ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-900'
-              }`}
-            >
-              Company
-            </h4>
-            <ul className="flex flex-col gap-2 text-sm font-medium">
-              {['About Us', 'Contact', 'FAQ'].map((item, idx) => (
-                <li key={idx}>
-                  <a
-                    href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className={`transition-colors ${
-                      theme === 'dark' ? 'text-gray-300 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'
-                    }`}
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Section 4: Legal */}
+        <div className="flex flex-col gap-3">
+          <h4
+            className={`text-xs font-bold tracking-widest uppercase ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-900'
+            }`}
+          >
+            Legal
+          </h4>
+          <ul className="flex flex-col gap-2 text-sm font-medium">
+            {['Privacy Policy', 'Terms of Service', 'Security & HIPAA'].map((item, idx) => (
+              <li key={idx}>
+                <a
+                  href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+                  className={`transition-colors ${
+                    theme === 'dark' ? 'text-gray-300 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'
+                  }`}
+                >
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
@@ -148,7 +145,7 @@ export default function Footer() {
           theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
         }`}
       >
-        <div>© {new Date().getFullYear()} CarePro. All rights reserved.</div>
+        <div>© {new Date().getFullYear()} CarePro+. All rights reserved.</div>
 
         <div className="flex items-center gap-2">
           <span>A product by</span>
