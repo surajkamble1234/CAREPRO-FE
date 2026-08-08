@@ -3,22 +3,35 @@ import { Activity, Eye, EyeOff, Lock, Mail, ArrowRight, ShieldCheck, Stethoscope
 import { useTheme } from '@/core/context/ThemeContext';
 import { authApi } from '../api/authApi';
 
-export default function LoginPage({ onLoginSuccess }) {
+export default function LoginPage({ onLoginSuccess, onNavigateHome }) {
   const { theme } = useTheme();
 
-  const [email, setEmail] = useState('reception@careplus.in');
+  const [email, setEmail] = useState('superadmin@maxzom.in');
   const [password, setPassword] = useState('maxzom@2026');
   const [showPassword, setShowPassword] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('Receptionist');
+  const [selectedRole, setSelectedRole] = useState('Super Admin');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   const staffRoles = [
-    { name: 'Doctor', count: '12', icon: Stethoscope, email: 'doctor@maxzom.in' },
+    { name: 'Super Admin', count: '1', icon: ShieldCheck, email: 'superadmin@maxzom.in' },
+    { name: 'Admin', count: '1', icon: UserCheck, email: 'admin@maxzom.in' },
+    { name: 'ER Staff', count: '1', icon: Activity, email: 'erstaff@maxzom.in' },
+    { name: 'HR', count: '1', icon: Building2, email: 'hr@maxzom.in' },
+    { name: 'Central Store Admin', count: '1', icon: KeyRound, email: 'centralstoreadmin@maxzom.in' },
+    { name: 'Doctor', count: '23', icon: Stethoscope, email: 'doctor@maxzom.in' },
+    { name: 'Finance Manager', count: '1', icon: Building2, email: 'financemanager@maxzom.in' },
+    { name: 'Nursing Manager', count: '1', icon: UserCheck, email: 'nursingmanager@maxzom.in' },
+    { name: 'OT Manager', count: '1', icon: Stethoscope, email: 'otmanager@maxzom.in' },
+    { name: 'Pharma Manager', count: '1', icon: ShieldCheck, email: 'pharmanager@maxzom.in' },
+    { name: 'Ward Supervisor', count: '1', icon: Activity, email: 'wardsupervisor@maxzom.in' },
+    { name: 'Accountant', count: '1', icon: KeyRound, email: 'accountant@maxzom.in' },
+    { name: 'Billing Clerk', count: '1', icon: Activity, email: 'billingclerk@maxzom.in' },
+    { name: 'Lab Technician', count: '1', icon: ShieldCheck, email: 'labtechnician@maxzom.in' },
     { name: 'Nurse', count: '7', icon: UserCheck, email: 'nurse@maxzom.in' },
     { name: 'Pharmacist', count: '2', icon: ShieldCheck, email: 'pharmacist@maxzom.in' },
     { name: 'Receptionist', count: '4', icon: Activity, email: 'receptionist@maxzom.in' },
-    { name: 'Sub-Store Admin', count: '1', icon: Building2, email: 'substore@maxzom.in' },
+    { name: 'Sub-Store Admin', count: '1', icon: Building2, email: 'substoreadmin@maxzom.in' },
     { name: 'Ward Boy', count: '1', icon: KeyRound, email: 'wardboy@maxzom.in' },
   ];
 
@@ -73,7 +86,11 @@ export default function LoginPage({ onLoginSuccess }) {
 
         {/* Brand Header */}
         <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-2.5 cursor-pointer group">
+          <div 
+            onClick={onNavigateHome}
+            className="flex items-center gap-2.5 cursor-pointer group hover:opacity-90 transition-opacity"
+            title="Return to Home"
+          >
             <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform shadow-lg shadow-emerald-500/10">
               <Activity className="w-5 h-5" />
             </div>
@@ -92,11 +109,11 @@ export default function LoginPage({ onLoginSuccess }) {
         {/* Main Content Area */}
         <div className="my-auto max-w-md w-full mx-auto flex flex-col gap-8">
           {/* Quick Hospital Staff Role Selector */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
             <label className="text-xs font-bold tracking-wider uppercase text-gray-400">
-              Quick Role Preset
+              Dev/test only — pick a role, then a person, to sign in as them.
             </label>
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto pr-1 rounded-xl p-2 border border-emerald-500/20 bg-emerald-950/20">
               {staffRoles.map((role) => {
                 const IconComponent = role.icon;
                 const isSelected = selectedRole === role.name;
@@ -108,6 +125,16 @@ export default function LoginPage({ onLoginSuccess }) {
                       setSelectedRole(role.name);
                       setEmail(role.email);
                       setPassword('maxzom@2026');
+                      const userObj = {
+                        name: `${role.name} Demo`,
+                        role: role.name,
+                        email: role.email,
+                        department: role.name,
+                      };
+                      localStorage.setItem('carepro_user', JSON.stringify(userObj));
+                      if (onLoginSuccess) {
+                        onLoginSuccess(userObj);
+                      }
                     }}
                     className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
                       isSelected

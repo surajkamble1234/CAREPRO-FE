@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Activity, Sun, Moon, ChevronRight, Menu, X, Stethoscope, Bed, Pill, TestTube, Receipt, FileText } from 'lucide-react';
 import { useTheme } from '@/core/context/ThemeContext';
 
-export default function Header() {
+export default function Header({ onNavigateLogin, onNavigateHome }) {
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isFeaturesOpen, setIsFeaturesOpen] = useState(false);
@@ -25,8 +25,11 @@ export default function Header() {
           }`}
       >
         {/* Brand Logo */}
-        <div className="flex items-center gap-2.5 cursor-pointer">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-500">
+        <div 
+          onClick={onNavigateHome}
+          className="flex items-center gap-2.5 cursor-pointer hover:opacity-90 transition-opacity"
+        >
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-500">
             <Activity className="w-4 h-4" />
           </div>
           <span
@@ -104,15 +107,15 @@ export default function Header() {
             {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
           </button>
 
-          <a
-            href="/login"
-            className={`hidden sm:inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${theme === 'dark'
-                ? 'bg-white text-gray-950 hover:bg-gray-100'
-                : 'bg-gray-900 text-white hover:bg-gray-800'
+          <button
+            onClick={onNavigateLogin}
+            className={`hidden sm:inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${theme === 'dark'
+                ? 'bg-white text-gray-950 hover:bg-gray-100 shadow-sm'
+                : 'bg-gray-900 text-white hover:bg-gray-800 shadow-sm'
               }`}
           >
             Login
-          </a>
+          </button>
 
           {/* Mobile Menu Icon */}
           <button
@@ -125,7 +128,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* CLEAN OVERLAY MOBILE MENU (NO DUPLICATE LOGO BAR) */}
+      {/* CLEAN OVERLAY MOBILE MENU */}
       {isMobileMenuOpen && (
         <div
           className={`absolute top-full inset-x-4 mt-3 z-50 md:hidden p-5 rounded-3xl shadow-2xl flex flex-col transition-all ${theme === 'dark'
@@ -172,14 +175,16 @@ export default function Header() {
           ))}
 
           {/* Mobile Login CTA */}
-          <a
-            href="/login"
-            className={`mt-5 w-full py-3 rounded-full font-bold text-center text-sm transition-all ${theme === 'dark' ? 'bg-white text-gray-950 hover:bg-gray-100' : 'bg-gray-900 text-white hover:bg-gray-800'
+          <button
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              if (onNavigateLogin) onNavigateLogin();
+            }}
+            className={`mt-5 w-full py-3 rounded-full font-bold text-center text-sm transition-all cursor-pointer ${theme === 'dark' ? 'bg-white text-gray-950 hover:bg-gray-100' : 'bg-gray-900 text-white hover:bg-gray-800'
               }`}
-            onClick={() => setIsMobileMenuOpen(false)}
           >
             Login to Portal
-          </a>
+          </button>
         </div>
       )}
     </header>
