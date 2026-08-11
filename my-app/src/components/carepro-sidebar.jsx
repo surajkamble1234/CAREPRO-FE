@@ -9,10 +9,46 @@ import {
   BedDouble,
   CheckCircle2,
   RefreshCw,
+  FlaskConical,
+  Microscope,
+  Activity,
+  PlusSquare,
+  Pill,
+  Package,
+  Boxes,
+  ClipboardCheck,
+  Store,
+  BadgePlus,
+  UserCheck,
+  Truck,
+  FileSpreadsheet,
+  RotateCcw,
+  Receipt,
+  CreditCard,
+  Banknote,
+  ShieldCheck,
+  BookOpen,
+  FileText,
+  FileCheck,
+  Wallet,
+  ArrowUpRight,
+  Building2,
+  ArrowDownLeft,
+  FileLock,
+  DollarSign,
+  CalendarDays,
+  UserPlus,
+  Clock,
+  BadgeDollarSign,
+  BarChart3,
+  Timer,
+  Settings,
+  Database,
+  Sliders,
   LogOut,
   X,
   ChevronRight,
-  ChevronLeft,
+  UserCheck2,
 } from 'lucide-react';
 import { useTheme } from '@/core/context/ThemeContext';
 
@@ -31,6 +67,7 @@ export function CareProSidebar({
 
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, isTop: true },
+
     { category: 'Clinical' },
     { name: 'Patients', icon: Users },
     { name: 'Emergency', icon: AlertCircle, badge: 2 },
@@ -40,6 +77,64 @@ export function CareProSidebar({
     { name: 'Bed', icon: BedDouble },
     { name: 'Clearances', icon: CheckCircle2, badge: 7 },
     { name: 'Bed turnaround', icon: RefreshCw },
+    { name: 'Diagnostics', icon: FlaskConical },
+    { name: 'Test Catalog', icon: Microscope },
+    { name: 'OT Board', icon: Activity },
+    { name: 'OT Requests', icon: PlusSquare },
+
+    { category: 'Supply' },
+    { name: 'Medicines', icon: Pill },
+    { name: 'Inventory', icon: Package },
+    { name: 'Item Master', icon: Boxes },
+    { name: 'Procurement', icon: ClipboardCheck },
+    { name: 'Store', icon: Store },
+    { name: 'Implants', icon: BadgePlus },
+    { name: 'Store Access', icon: UserCheck },
+    { name: 'Vendors', icon: Truck },
+    { name: 'Medicine Requests', icon: FileSpreadsheet },
+    { name: 'Auto-reorder', icon: RotateCcw },
+
+    { category: 'Finance' },
+    { name: 'Billing', icon: Receipt },
+    { name: 'Payments', icon: CreditCard },
+    { name: 'Counter cash', icon: Banknote },
+    { name: 'Claims / TPA', icon: ShieldCheck },
+    { name: 'Ledger & COA', icon: BookOpen },
+    { name: 'Books & statements', icon: FileText },
+    { name: 'Vouchers', icon: FileCheck },
+    { name: 'Expenses', icon: Wallet },
+    { name: 'Payables', icon: ArrowUpRight },
+    { name: 'Bank reconciliation', icon: Building2 },
+    { name: 'Receivables', icon: ArrowDownLeft },
+    { name: 'Compliance', icon: FileLock },
+    { name: 'Tally', icon: FileSpreadsheet, hasArrow: true },
+    { name: 'Case costing', icon: DollarSign },
+
+    { category: 'People' },
+    { name: 'Ward Scheduling', icon: CalendarDays },
+    { name: 'Doctor Roster', icon: UserPlus },
+    { name: 'Staff Directory', icon: Users },
+    { name: 'Attendance', icon: Clock, hasArrow: true },
+    { name: 'Payroll', icon: BadgeDollarSign, hasArrow: true },
+    { name: 'Registration', icon: UserCheck2, hasArrow: true },
+    { name: 'Leave Allocation', icon: CalendarDays },
+
+    { category: 'MIS Reporting' },
+    { name: 'MIS Home', icon: BarChart3 },
+    { name: 'Clinical & Care', icon: BarChart3, hasArrow: true },
+    { name: 'Finance & Accountant', icon: BarChart3, hasArrow: true },
+    { name: 'Supply & People', icon: BarChart3, hasArrow: true },
+    { name: 'Governance', icon: BarChart3, hasArrow: true },
+
+    { category: 'Turnaround (TAT)' },
+    { name: 'TAT', icon: Timer },
+
+    { category: 'System' },
+    { name: 'Reports', icon: FileText },
+    { name: 'Settings', icon: Settings },
+    { name: 'Masters', icon: Database },
+    { name: 'Feature Flags', icon: Sliders },
+    { name: 'Roles & Permissions', icon: ShieldCheck },
   ];
 
   const handleSelect = (name) => {
@@ -71,11 +166,11 @@ export function CareProSidebar({
             : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        <div className="flex flex-col h-full justify-between">
+        <div className="flex flex-col h-full justify-between overflow-hidden">
           <div>
             {/* Brand Header */}
             {!isCollapsed ? (
-              <div className="flex flex-col items-center justify-center text-center px-2 pt-2 pb-1 relative">
+              <div className="flex flex-col items-center justify-center text-center px-2 pt-1 pb-1 relative">
                 {/* Mobile Close Button */}
                 <button
                   onClick={onClose}
@@ -107,7 +202,7 @@ export function CareProSidebar({
             )}
 
             {/* Native SVG SMIL Continuous Running ECG Machine Waveform Animation */}
-            <div className={`mt-4 mb-4 relative overflow-hidden h-7 flex items-center ${isCollapsed ? 'px-0' : 'px-2'}`}>
+            <div className={`mt-3 mb-3 relative overflow-hidden h-7 flex items-center ${isCollapsed ? 'px-0' : 'px-2'}`}>
               <div className="w-full overflow-hidden h-full">
                 <svg
                   viewBox="0 0 400 30"
@@ -128,11 +223,11 @@ export function CareProSidebar({
               </div>
             </div>
 
-            {/* Navigation Menu */}
-            <nav className="flex flex-col gap-1.5 mt-4 overflow-y-auto no-scrollbar max-h-[calc(100vh-270px)]">
+            {/* Navigation Menu (Complete HMS Modules List) */}
+            <nav className="flex flex-col gap-1 mt-2 overflow-y-auto no-scrollbar max-h-[calc(100vh-250px)] pr-1">
               {menuItems.map((item, idx) => {
                 if (item.category) {
-                  if (isCollapsed) return <div key={idx} className="my-1 border-t border-[#083025]" />;
+                  if (isCollapsed) return <div key={idx} className="my-1.5 border-t border-[#083025]" />;
                   return (
                     <div key={idx} className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest px-3.5 pt-3 pb-1">
                       {item.category}
@@ -149,13 +244,13 @@ export function CareProSidebar({
                       key={item.name}
                       onClick={() => handleSelect(item.name)}
                       title={item.name}
-                      className={`w-12 h-12 mx-auto flex items-center justify-center rounded-2xl transition-all cursor-pointer relative group ${
+                      className={`w-11 h-11 mx-auto flex items-center justify-center rounded-xl transition-all cursor-pointer relative group my-0.5 ${
                         isActive
                           ? 'bg-[#F7EEDD] text-[#031E17] shadow-md font-bold'
                           : 'text-gray-300 hover:bg-[#062D23] hover:text-white'
                       }`}
                     >
-                      <IconComp className={`w-5 h-5 ${isActive ? 'text-[#031E17]' : 'text-gray-300'}`} />
+                      <IconComp className={`w-4 h-4 ${isActive ? 'text-[#031E17]' : 'text-gray-300'}`} />
                       {item.badge && (
                         <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 text-white text-[9px] font-bold flex items-center justify-center">
                           {item.badge}
@@ -169,7 +264,7 @@ export function CareProSidebar({
                   <button
                     key={item.name}
                     onClick={() => handleSelect(item.name)}
-                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                       isActive
                         ? 'bg-[#F7EEDD] text-[#031E17] shadow-sm font-bold scale-[1.01]'
                         : 'text-gray-300 hover:bg-[#062D23] hover:text-white'
@@ -179,15 +274,20 @@ export function CareProSidebar({
                       <IconComp className={`w-4 h-4 ${isActive ? 'text-[#031E17]' : 'text-gray-300'}`} />
                       <span>{item.name}</span>
                     </div>
-                    {item.badge && (
-                      <span
-                        className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                          isActive ? 'bg-[#031E17] text-white' : 'bg-emerald-500/20 text-emerald-300'
-                        }`}
-                      >
-                        {item.badge}
-                      </span>
-                    )}
+                    <div className="flex items-center gap-1.5">
+                      {item.badge && (
+                        <span
+                          className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                            isActive ? 'bg-[#031E17] text-white' : 'bg-emerald-500/20 text-emerald-300'
+                          }`}
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                      {item.hasArrow && (
+                        <ChevronRight className={`w-3.5 h-3.5 ${isActive ? 'text-[#031E17]' : 'text-gray-400'}`} />
+                      )}
+                    </div>
                   </button>
                 );
               })}
@@ -195,7 +295,7 @@ export function CareProSidebar({
           </div>
 
           {/* Logged In User Profile Box at Bottom */}
-          <div className="pt-2 border-t border-[#083025] mt-auto">
+          <div className="pt-2 border-t border-[#083025] mt-auto shrink-0">
             {!isCollapsed ? (
               <div className="flex items-center justify-between p-2 rounded-xl bg-[#062D23]/70 hover:bg-[#062D23] transition-colors border border-emerald-500/10">
                 <div className="flex items-center gap-2.5 min-w-0">
@@ -219,7 +319,7 @@ export function CareProSidebar({
               <button
                 onClick={onLogout}
                 title={`Logged in as ${username} (${roleDisplay}) - Click to Log out`}
-                className="w-12 h-12 mx-auto rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-300 font-bold text-xs cursor-pointer hover:bg-red-500/20 hover:text-red-300 transition-colors"
+                className="w-11 h-11 mx-auto rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-300 font-bold text-xs cursor-pointer hover:bg-red-500/20 hover:text-red-300 transition-colors"
               >
                 {username.substring(0, 2).toUpperCase()}
               </button>
